@@ -5,7 +5,7 @@ st.set_page_config(page_title="문화 취향 나라 추천기", page_icon="🌍"
 st.title("🌍 문화 취향 기반 나라 추천기")
 st.markdown("✨ 몇 가지 질문에 답하고, 당신과 꼭 맞는 나라 TOP 3를 찾아보세요! ✨")
 
-# 질문을 카드형식으로 표시
+# ---------------- 질문 카드 ---------------- #
 with st.container():
     st.markdown("### 🍜 음식 취향")
     food = st.radio("당신의 음식 스타일은?", 
@@ -25,11 +25,18 @@ with st.container():
                        horizontal=True)
 
 with st.container():
-    st.markdown("### 🗺️ 여행 스타일")
-    travel = st.radio("여행할 때 나는...", 
-                      ["도시 탐험", "자연 힐링", "역사와 문화 탐방", "바다와 휴양"], 
-                      horizontal=True)
+    st.markdown("### 🏨 숙소 스타일")
+    stay = st.radio("여행할 때 선호하는 숙소는?", 
+                    ["럭셔리 호텔", "게스트하우스/에어비앤비", "자연 속 리조트/방갈로", "캠핑/야생 숙소"], 
+                    horizontal=True)
 
+with st.container():
+    st.markdown("### 🥂 여행 중 즐기는 활동")
+    activity = st.radio("여행할 때 나는...", 
+                        ["미식 여행", "쇼핑", "축제·파티", "힐링·자연", "모험·스포츠"], 
+                        horizontal=True)
+
+# ---------------- 버튼 ---------------- #
 if st.button("추천받기 🚀"):
     # 국가별 점수 초기화
     countries = {
@@ -82,17 +89,29 @@ if st.button("추천받기 🚀"):
     elif climate == "건조하고 뜨거운 곳":
         for c in ["이집트 🇪🇬","모로코 🇲🇦","사우디아라비아 🇸🇦","케냐 🇰🇪"]: countries[c]+=1
 
-    # 여행 스타일 매핑
-    if travel == "도시 탐험":
-        for c in ["한국 🇰🇷","미국 🇺🇸","프랑스 🇫🇷","중국 🇨🇳"]: countries[c]+=1
-    elif travel == "자연 힐링":
-        for c in ["뉴질랜드 🇳🇿","캐나다 🇨🇦","케냐 🇰🇪","스웨덴 🇸🇪","피지 🇫🇯"]: countries[c]+=1
-    elif travel == "역사와 문화 탐방":
-        for c in ["이집트 🇪🇬","인도 🇮🇳","체코 🇨🇿","터키 🇹🇷","이탈리아 🇮🇹","중국 🇨🇳"]: countries[c]+=1
-    elif travel == "바다와 휴양":
-        for c in ["스페인 🇪🇸","브라질 🇧🇷","멕시코 🇲🇽","피지 🇫🇯","태국 🇹🇭"]: countries[c]+=1
+    # 숙소 매핑
+    if stay == "럭셔리 호텔":
+        for c in ["미국 🇺🇸","프랑스 🇫🇷","한국 🇰🇷","사우디아라비아 🇸🇦"]: countries[c]+=1
+    elif stay == "게스트하우스/에어비앤비":
+        for c in ["일본 🇯🇵","체코 🇨🇿","스페인 🇪🇸","멕시코 🇲🇽"]: countries[c]+=1
+    elif stay == "자연 속 리조트/방갈로":
+        for c in ["태국 🇹🇭","피지 🇫🇯","뉴질랜드 🇳🇿","케냐 🇰🇪"]: countries[c]+=1
+    elif stay == "캠핑/야생 숙소":
+        for c in ["캐나다 🇨🇦","핀란드 🇫🇮","남아공 🇿🇦","칠레 🇨🇱"]: countries[c]+=1
 
-    # 결과 계산 (TOP 3)
+    # 여행 중 활동 매핑
+    if activity == "미식 여행":
+        for c in ["이탈리아 🇮🇹","프랑스 🇫🇷","태국 🇹🇭","멕시코 🇲🇽"]: countries[c]+=1
+    elif activity == "쇼핑":
+        for c in ["한국 🇰🇷","일본 🇯🇵","미국 🇺🇸","중국 🇨🇳"]: countries[c]+=1
+    elif activity == "축제·파티":
+        for c in ["스페인 🇪🇸","브라질 🇧🇷","멕시코 🇲🇽","남아공 🇿🇦"]: countries[c]+=1
+    elif activity == "힐링·자연":
+        for c in ["뉴질랜드 🇳🇿","캐나다 🇨🇦","핀란드 🇫🇮","케냐 🇰🇪"]: countries[c]+=1
+    elif activity == "모험·스포츠":
+        for c in ["호주 🇦🇺","칠레 🇨🇱","남아공 🇿🇦","노르웨이 🇳🇴"]: countries[c]+=1
+
+    # ---------------- 결과 계산 ---------------- #
     sorted_countries = sorted(countries.items(), key=lambda x: x[1], reverse=True)
     top3 = sorted_countries[:3]
 
@@ -129,10 +148,42 @@ if st.button("추천받기 🚀"):
         "피지 🇫🇯":"🏝️ 남태평양의 휴양지, 천국 같은 바다!"
     }
 
-    st.markdown("## 🏆 당신과 어울리는 TOP 3 나라!")
+    images = {
+        "한국 🇰🇷":"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Seoul_skyline.jpg/640px-Seoul_skyline.jpg",
+        "일본 🇯🇵":"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Mount_Fuji_from_Hotel_Mt_Fuji_1995-3-20.jpg/640px-Mount_Fuji_from_Hotel_Mt_Fuji_1995-3-20.jpg",
+        "인도 🇮🇳":"https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Taj-Mahal.jpg/640px-Taj-Mahal.jpg",
+        "태국 🇹🇭":"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Wat_Phra_Kaew_Bangkok.jpg/640px-Wat_Phra_Kaew_Bangkok.jpg",
+        "중국 🇨🇳":"https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/GreatWall_2018.jpg/640px-GreatWall_2018.jpg",
+        "사우디아라비아 🇸🇦":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Kaaba_Mecca.jpg/640px-Kaaba_Mecca.jpg",
+        "터키 🇹🇷":"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Hagia_Sophia_Mars_2013.jpg/640px-Hagia_Sophia_Mars_2013.jpg",
+        "프랑스 🇫🇷":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Tour_Eiffel_Wikimedia_Commons.jpg/640px-Tour_Eiffel_Wikimedia_Commons.jpg",
+        "이탈리아 🇮🇹":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Colosseum_in_Rome%2C_Italy_-_April_2007.jpg/640px-Colosseum_in_Rome%2C_Italy_-_April_2007.jpg",
+        "스페인 🇪🇸":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Sagrada_Familia_01.jpg/640px-Sagrada_Familia_01.jpg",
+        "스웨덴 🇸🇪":"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Stockholm_city.jpg/640px-Stockholm_city.jpg",
+        "노르웨이 🇳🇴":"https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Geirangerfjord_from_flydalsjuvet.jpg/640px-Geirangerfjord_from_flydalsjuvet.jpg",
+        "핀란드 🇫🇮":"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Helsinki_cathedral.jpg/640px-Helsinki_cathedral.jpg",
+        "폴란드 🇵🇱":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Wawel_Castle_05.jpg/640px-Wawel_Castle_05.jpg",
+        "체코 🇨🇿":"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Prague_Castle_and_Charles_Bridge.jpg/640px-Prague_Castle_and_Charles_Bridge.jpg",
+        "러시아 🇷🇺":"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Moscow_July_2011-7a.jpg/640px-Moscow_July_2011-7a.jpg",
+        "미국 🇺🇸":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/New_York_City_skyline.jpg/640px-New_York_City_skyline.jpg",
+        "캐나다 🇨🇦":"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Niagara_Falls_2.jpg/640px-Niagara_Falls_2.jpg",
+        "멕시코 🇲🇽":"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Chichen_Itza_3.jpg/640px-Chichen_Itza_3.jpg",
+        "브라질 🇧🇷":"https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Rio_de_Janeiro_Christ_the_Redeemer.jpg/640px-Rio_de_Janeiro_Christ_the_Redeemer.jpg",
+        "아르헨티나 🇦🇷":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Buenos_Aires%2C_Congreso_de_la_Naci%C3%B3n_Argentina.jpg/640px-Buenos_Aires%2C_Congreso_de_la_Naci%C3%B3n_Argentina.jpg",
+        "칠레 🇨🇱":"https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Torres_del_Paine.jpg/640px-Torres_del_Paine.jpg",
+        "페루 🇵🇪":"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Machu_Picchu%2C_Peru.jpg/640px-Machu_Picchu%2C_Peru.jpg",
+        "이집트 🇪🇬":"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/All_Gizah_Pyramids.jpg/640px-All_Gizah_Pyramids.jpg",
+        "남아공 🇿🇦":"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Cape_Town_and_Table_Mountain.jpg/640px-Cape_Town_and_Table_Mountain.jpg",
+        "모로코 🇲🇦":"https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Casablanca_Morocco.jpg/640px-Casablanca_Morocco.jpg",
+        "케냐 🇰🇪":"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Masai_Mara_Kenya.jpg/640px-Masai_Mara_Kenya.jpg",
+        "호주 🇦🇺":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Sydney_Opera_House_Sails.jpg/640px-Sydney_Opera_House_Sails.jpg",
+        "뉴질랜드 🇳🇿":"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Milford_Sound_NZ.jpg/640px-Milford_Sound_NZ.jpg",
+        "피지 🇫🇯":"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Fiji_beach.jpg/640px-Fiji_beach.jpg",
+    }
+
+    st.subheader("🌟 당신과 어울리는 TOP 3 나라 🌟")
     for i, (country, score) in enumerate(top3, start=1):
-        st.markdown(
-            f"<h3 style='font-size:28px;'>#{i} {country} ({score}점)</h3>"
-            f"<p style='font-size:20px;'>{descriptions[country]}</p><hr>",
-            unsafe_allow_html=True
-        )
+        st.markdown(f"## 🥇 TOP {i}: {country}")
+        st.write(descriptions.get(country, "매력적인 나라예요!"))
+        if country in images:
+            st.image(images[country], use_column_width=True)
