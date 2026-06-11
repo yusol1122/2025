@@ -25,7 +25,7 @@ h1, h2 {
 """, unsafe_allow_html=True)
 
 if "page" not in st.session_state:
-st.session_state.page = 1
+    st.session_state.page = 1
 
 # -----------------------------
 
