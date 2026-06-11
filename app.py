@@ -38,7 +38,7 @@ h1, h2 {
 # -----------------------------
 
 if "page" not in st.session_state:
-st.session_state.page = 1
+    st.session_state.page = 1
 
 # -----------------------------
 
