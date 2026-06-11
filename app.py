@@ -165,4 +165,3 @@ elif st.session_state.page == 3:
         st.write(
             f"예방 및 대응 지식: {knowledge_score}점 ({knowledge_level})"
         )
-```
