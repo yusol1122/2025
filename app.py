@@ -47,9 +47,7 @@ if "page" not in st.session_state:
 # -----------------------------
 
 if st.session_state.page == 1:
-
-```
-st.title("디지털 성범죄 예방 교육")
+    st.title("디지털 성범죄 예방 교육")
 
 st.markdown("---")
 
@@ -63,6 +61,10 @@ st.write(
 )
 
 st.markdown("")
+    
+
+```
+
 
 if st.button("시작하기", use_container_width=True):
     st.session_state.page = 2
