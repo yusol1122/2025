@@ -6,12 +6,6 @@ page_icon="📱",
 layout="centered"
 )
 
-# -----------------------------
-
-# 스타일
-
-# -----------------------------
-
 st.markdown("""
 
 <style>
@@ -30,15 +24,8 @@ h1, h2 {
 
 """, unsafe_allow_html=True)
 
-# -----------------------------
-
-# 세션 상태
-
-# -----------------------------
-
 if "page" not in st.session_state:
-    st.session_state.page = 1
-
+st.session_state.page = 1
 
 # -----------------------------
 
@@ -47,23 +34,17 @@ if "page" not in st.session_state:
 # -----------------------------
 
 if st.session_state.page == 1:
-    
 
 ```
-    st.title("디지털 성범죄 예방 교육")
+st.title("디지털 성범죄 예방 교육")
 
-    st.markdown("---")
+st.markdown("---")
 
-    st.write(
-    """
-    본 설문은 청소년의 디지털 성범죄 인식도와
-    예방 및 대응 지식 수준을 파악하기 위해 실시됩니다.
+st.write("""
+본 설문은 청소년의 디지털 성범죄 인식도와 예방 및 대응 지식 수준을 파악하기 위해 실시됩니다.
 
-    모든 응답은 교육 프로그램 개선을 위한 자료로 활용됩니다.
-    """
-)
-
-st.markdown("")
+모든 응답은 교육 프로그램 개선을 위한 자료로 활용됩니다.
+""")
 
 if st.button("시작하기", use_container_width=True):
     st.session_state.page = 2
@@ -79,9 +60,9 @@ if st.button("시작하기", use_container_width=True):
 elif st.session_state.page == 2:
 
 ```
-    st.progress(50)
+st.progress(50)
 
-    st.header("디지털 성범죄 인식 설문")
+st.header("디지털 성범죄 인식 설문")
 
 options = {
     "매우 그렇다": 5,
@@ -126,7 +107,6 @@ if st.button("다음 페이지", use_container_width=True):
     if None in [q1, q2, q3, q4, q5]:
         st.warning("모든 문항에 답변해주세요.")
     else:
-
         st.session_state.recognition_score = (
             options[q1]
             + options[q2]
@@ -148,9 +128,9 @@ if st.button("다음 페이지", use_container_width=True):
 elif st.session_state.page == 3:
 
 ```
-    st.progress(100)
+st.progress(100)
 
-    st.header("예방 및 대응 지식 설문")
+st.header("예방 및 대응 지식 설문")
 
 yes_no = {
     "예": 1,
@@ -198,7 +178,6 @@ if st.button("결과 보기", use_container_width=True):
     if None in [k1, k2, k3, k4, k5, k6]:
         st.warning("모든 문항에 답변해주세요.")
     else:
-
         st.session_state.knowledge_score = (
             yes_no[k1]
             + yes_no[k2]
@@ -221,25 +200,21 @@ if st.button("결과 보기", use_container_width=True):
 elif st.session_state.page == 4:
 
 ```
-    st.title("설문 결과")
+st.title("설문 결과")
 
-    st.success("설문이 완료되었습니다.")
+st.success("설문이 완료되었습니다.")
 
-    st.markdown(
-    f"""
-    <h2><b>디지털 성범죄 인식 점수 : {st.session_state.recognition_score} / 25</b></h2>
-    """,
+st.markdown(
+    f"<h2><b>디지털 성범죄 인식 점수 : {st.session_state.recognition_score} / 25</b></h2>",
     unsafe_allow_html=True
 )
 
-    st.markdown(
-    f"""
-    <h2><b>예방 및 대응 지식 점수 : {st.session_state.knowledge_score} / 6</b></h2>
-    """,
+st.markdown(
+    f"<h2><b>예방 및 대응 지식 점수 : {st.session_state.knowledge_score} / 6</b></h2>",
     unsafe_allow_html=True
 )
 
-    st.info("설문 결과는 교육 프로그램 구성 및 개선을 위한 자료로 활용됩니다.")
+st.info("설문 결과는 교육 프로그램 구성 및 개선을 위한 자료로 활용됩니다.")
 
 result_text = f"""
 ```
@@ -249,15 +224,13 @@ result_text = f"""
 """
 
 ```
-    st.download_button(
+st.download_button(
     label="결과 저장",
     data=result_text,
     file_name="survey_result.txt",
     mime="text/plain",
     use_container_width=True
 )
-
-    st.markdown("")
 
 if st.button("처음으로", use_container_width=True):
     st.session_state.page = 1
