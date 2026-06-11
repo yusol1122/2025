@@ -37,7 +37,8 @@ h1, h2 {
 # -----------------------------
 
 if "page" not in st.session_state:
-st.session_state.page = 1
+    st.session_state.page = 1
+
 
 # -----------------------------
 
@@ -46,13 +47,14 @@ st.session_state.page = 1
 # -----------------------------
 
 if st.session_state.page == 1:
+    
 
 ```
-st.title("디지털 성범죄 예방 교육")
+    st.title("디지털 성범죄 예방 교육")
 
-st.markdown("---")
+    st.markdown("---")
 
-st.write(
+    st.write(
     """
     본 설문은 청소년의 디지털 성범죄 인식도와
     예방 및 대응 지식 수준을 파악하기 위해 실시됩니다.
@@ -77,9 +79,9 @@ if st.button("시작하기", use_container_width=True):
 elif st.session_state.page == 2:
 
 ```
-st.progress(50)
+    st.progress(50)
 
-st.header("디지털 성범죄 인식 설문")
+    st.header("디지털 성범죄 인식 설문")
 
 options = {
     "매우 그렇다": 5,
@@ -146,9 +148,9 @@ if st.button("다음 페이지", use_container_width=True):
 elif st.session_state.page == 3:
 
 ```
-st.progress(100)
+    st.progress(100)
 
-st.header("예방 및 대응 지식 설문")
+    st.header("예방 및 대응 지식 설문")
 
 yes_no = {
     "예": 1,
@@ -219,25 +221,25 @@ if st.button("결과 보기", use_container_width=True):
 elif st.session_state.page == 4:
 
 ```
-st.title("설문 결과")
+    st.title("설문 결과")
 
-st.success("설문이 완료되었습니다.")
+    st.success("설문이 완료되었습니다.")
 
-st.markdown(
+    st.markdown(
     f"""
     <h2><b>디지털 성범죄 인식 점수 : {st.session_state.recognition_score} / 25</b></h2>
     """,
     unsafe_allow_html=True
 )
 
-st.markdown(
+    st.markdown(
     f"""
     <h2><b>예방 및 대응 지식 점수 : {st.session_state.knowledge_score} / 6</b></h2>
     """,
     unsafe_allow_html=True
 )
 
-st.info("설문 결과는 교육 프로그램 구성 및 개선을 위한 자료로 활용됩니다.")
+    st.info("설문 결과는 교육 프로그램 구성 및 개선을 위한 자료로 활용됩니다.")
 
 result_text = f"""
 ```
@@ -247,7 +249,7 @@ result_text = f"""
 """
 
 ```
-st.download_button(
+    st.download_button(
     label="결과 저장",
     data=result_text,
     file_name="survey_result.txt",
@@ -255,7 +257,7 @@ st.download_button(
     use_container_width=True
 )
 
-st.markdown("")
+    st.markdown("")
 
 if st.button("처음으로", use_container_width=True):
     st.session_state.page = 1
